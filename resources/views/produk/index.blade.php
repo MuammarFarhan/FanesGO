@@ -1,60 +1,174 @@
-@extends('layouts.app')
-@section('title', 'Manajemen Produk')
-@section('page-title', 'Produk Saya')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Produk - FANES.GO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background-color: #fff;
+            border-right: 1px solid #dee2e6;
+        }
+        .nav-link {
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .nav-link:hover {
+            background-color: #f8f9fa;
+            color: #28a745;
+        }
+        .nav-link.active {
+            background-color: #e9ecef;
+            color: #28a745;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="p-3">
+                <h4 class="text-success mb-4">FANES.GO</h4>
+                
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a href="{{ url('/') }}" class="nav-link">
+                            <i class="fas fa-tachometer-alt me-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item mb-2">
+                        <a href="{{ url('/produk') }}" class="nav-link active">
+                            <i class="fas fa-box me-2"></i>
+                            Produk Saya
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item mb-2">
+                        <a href="{{ url('/kategori') }}" class="nav-link">
+                            <i class="fas fa-tags me-2"></i>
+                            Kategori
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-grow-1">
+            <!-- Header -->
+            <div class="bg-success text-white p-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Produk Saya</h5>
+                <span>siti aisyah</span>
+            </div>
 
-@section('content')
-<div class="bg-white shadow rounded-lg p-6">
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-lg font-semibold">Daftar Produk</h2>
-        <a href="{{ route('produk.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+ Tambah Produk</a>
+            <!-- Content -->
+            <div class="container-fluid p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Daftar Produk</h4>
+                    <a href="{{ url('/produk/create') }}" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Tambah Produk
+                    </a>
+                </div>
+
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Gambar</th>
+                                        <th>Nama Produk</th>
+                                        <th>Kategori</th>
+                                        <th>Harga</th>
+                                        <th>Stok</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($produks as $produk)
+                                    <tr>
+                                        <td class="text-center">
+                                            @if($produk->gambar)
+                                                <img src="{{ asset('storage/' . $produk->gambar) }}" 
+                                                     alt="{{ $produk->nama_produk }}" 
+                                                     class="img-thumbnail" 
+                                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                            @else
+                                                <div class="bg-secondary d-flex align-items-center justify-content-center text-white mx-auto" 
+                                                     style="width: 60px; height: 60px; font-size: 10px;">
+                                                    No Image
+                                                </div>
+                                            @endif
+                                        </td>
+                                        <td>{{ $produk->nama_produk }}</td>
+                                        <td>
+                                            <span class="badge bg-info">
+                                                {{ $produk->kategori->nama_kategori ?? '-' }}
+                                            </span>
+                                        </td>
+                                        <td>Rp {{ number_format($produk->harga, 0, ',', '.') }}</td>
+                                        <td class="text-center">
+                                            <span class="badge {{ $produk->stok > 10 ? 'bg-success' : ($produk->stok > 0 ? 'bg-warning' : 'bg-danger') }}">
+                                                {{ $produk->stok }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ url('/produk/' . $produk->id . '/edit') }}" 
+                                                   class="btn btn-sm btn-warning" 
+                                                   title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ url('/produk/' . $produk->id) }}" 
+                                                      method="POST" 
+                                                      class="d-inline"
+                                                      onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" 
+                                                            class="btn btn-sm btn-danger" 
+                                                            title="Hapus">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">
+                                            <p class="text-muted mb-2">Anda belum memiliki produk.</p>
+                                            <a href="{{ url('/produk/create') }}" class="btn btn-success btn-sm">
+                                                <i class="fas fa-plus"></i> Tambah Produk Pertama
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    @if(session('success'))
-    <div class="bg-green-100 text-green-800 px-4 py-3 rounded mb-4">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <table class="w-full border-collapse">
-        <thead>
-            <tr class="bg-gray-100 text-left">
-                <th class="p-2 border">Gambar</th>
-                <th class="p-2 border">Nama Produk</th>
-                <th class="p-2 border">Kategori</th>
-                <th class="p-2 border">Harga</th>
-                <th class="p-2 border">Stok</th>
-                <th class="p-2 border text-center">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($produks as $produk)
-            <tr class="hover:bg-gray-50">
-                <td class="p-2 border">
-                    @if($produk->file)
-                    <img src="{{ route('files.action', ['id' => $produk->file->id, 'action' => 'stream']) }}" alt="product image" class="w-16 h-16 object-cover rounded">
-                    @else
-                    <span class="text-xs text-gray-500">N/A</span>
-                    @endif
-                </td>
-                <td class="p-2 border">{{ $produk->nama_produk }}</td>
-                <td class="p-2 border">{{ $produk->kategori->nama_kategori ?? 'N/A' }}</td>
-                <td class="p-2 border">Rp {{ number_format($produk->harga) }}</td>
-                <td class="p-2 border">{{ $produk->stok }}</td>
-                <td class="p-2 border text-center">
-                    <a href="{{ route('produk.edit', $produk->id) }}" class="text-yellow-600 hover:underline">Edit</a> |
-                    <form action="{{ route('produk.destroy', $produk->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin hapus produk ini?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="6" class="p-4 text-center text-gray-500">Anda belum memiliki produk.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
