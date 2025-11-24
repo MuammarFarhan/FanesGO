@@ -18,7 +18,6 @@
         }
 
         .glass-card {
-            /* Glass effect yang lebih tebal agar kontras dengan tekstur background */
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -27,14 +26,14 @@
         }
 
         .modern-input {
-            background: #f0fdf4; /* Hijau Mint Sangat Muda */
+            background: #f0fdf4;
             border: 1px solid #dcfce7;
             transition: all 0.3s ease;
         }
 
         .modern-input:focus {
             background: #ffffff;
-            border-color: #10b981; /* Emerald 500 */
+            border-color: #10b981;
             box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
             outline: none;
         }
