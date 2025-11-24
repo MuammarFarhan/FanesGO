@@ -18,7 +18,7 @@
                 <span>📞 +62 895-3239-32558</span>
             </div>
             <div class="flex items-center space-x-2">
-                <span>Gratis Ongkir ke seluruh Indonesia!</span>
+                <span>Belanja Murah Hanya Disini!</span>
             </div>
         </div>
     </div>
@@ -197,7 +197,7 @@
                 <!-- About -->
                 <div>
                     <h3 class="text-xl font-bold mb-4 text-green-400">FANES.GO</h3>
-                    <p class="text-gray-400 text-sm mb-4">Marketplace terpercaya untuk produk oleh-oleh UMKM dari seluruh Indonesia.</p>
+                    <p class="text-gray-400 text-sm mb-4">Marketplace terpercaya untuk produk oleh-oleh UMKM di kawasan Bengkalis.</p>
                     <div class="flex space-x-3">
                         <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -249,7 +249,7 @@
             </div>
 
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-                <p>&copy; {{ date('Y') }} FANES.GO - Marketplace Oleh-oleh UMKM Indonesia. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} FANES.GO - Marketplace Oleh-oleh UMKM Bengkalis. All rights reserved.</p>
             </div>
         </div>
     </footer>
