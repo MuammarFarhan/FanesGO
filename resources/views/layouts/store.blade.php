@@ -15,7 +15,7 @@
         <div class="container mx-auto px-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
                 <span>📧 support@fanes.go</span>
-                <span>📞 +62 812-3456-7890</span>
+                <span>📞 +62 895-3239-32558</span>
             </div>
             <div class="flex items-center space-x-2">
                 <span>Gratis Ongkir ke seluruh Indonesia!</span>
@@ -242,8 +242,8 @@
                     <h4 class="font-semibold mb-4">Hubungi Kami</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
                         <li>📧 support@fanes.go</li>
-                        <li>📞 +62 812-3456-7890</li>
-                        <li>📍 Batam, Riau, Indonesia</li>
+                        <li>📞 +62 895-3229-32558</li>
+                        <li>📍 Bengkalis, Riau, Indonesia</li>
                     </ul>
                 </div>
             </div>
