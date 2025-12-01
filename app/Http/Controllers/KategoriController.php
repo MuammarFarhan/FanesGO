@@ -14,6 +14,13 @@ class KategoriController extends Controller
         return view('kategori.index', compact('kategoris'));
     }
 
+    public function create()
+    {
+        $kategoris = Kategori::all();
+        return view('produk.create', compact('kategoris'));
+    }
+
+
     // Simpan kategori baru
     public function store(Request $request)
     {
