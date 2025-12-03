@@ -12,9 +12,10 @@ class Produk extends Model
         'nama_produk',
         'kategori_id',
         'user_id',
-        'deskripsi_singkat',
+        'deskripsi',
         'harga',
-        'stok'
+        'stok',
+        'gambar'
     ];
 
     public function kategori()

@@ -41,15 +41,16 @@ class ProdukController extends Controller
 
         $data = $request->all();
 
-        // Upload gambar jika ada
+        $data['user_id'] = Auth::id();
+
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('produks', $filename, 'public');
+            $path = $file->storeAs('produks', $filename, 'public'); 
             $data['gambar'] = $path;
         }
 
-        Produk::create($data);
+       Produk::create($data);
 
         return redirect()->route('produk.index')
             ->with('success', 'Produk berhasil ditambahkan!');
