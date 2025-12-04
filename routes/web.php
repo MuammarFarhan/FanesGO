@@ -12,6 +12,11 @@ use App\Models\File;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/produk/{id}/detail', [HomeController::class, 'show'])->name('produk.detail');
 
+Route::get('/kategori', [HomeController::class, 'kategori'])->name('kategori.index');
+Route::get('/tentang-kami', [HomeController::class, 'about'])->name('about');
+Route::get('/kontak', [HomeController::class, 'contact'])->name('contact');
+
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -20,6 +25,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
 
 Route::middleware(['auth'])->group(function () {
     
@@ -34,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::resource('kategori', KategoriController::class)->only(['index', 'store', 'destroy']);
 });
+
 
 Route::get('/files/{id}/{action}', function ($id, $action) {
     $file = File::findOrFail($id);
