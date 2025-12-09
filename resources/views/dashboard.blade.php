@@ -4,15 +4,15 @@
 
 @section('content')
 <!-- Welcome Section -->
-<div class="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl shadow-xl p-8 mb-8 text-white">
+<div class="bg-gradient-to-r from-green-600 to-green-500 rounded-2xl shadow-xl p-8 mb-8 text-white">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
         <div>
             <h1 class="text-3xl font-bold mb-2">Selamat Datang, {{ Auth::user()->name }}! 👋</h1>
-            <p class="text-green-100">Berikut adalah ringkasan aktivitas bisnis Anda hari ini</p>
+            <p class="text-green-50">Berikut adalah ringkasan aktivitas bisnis Anda hari ini</p>
         </div>
         <div class="mt-4 md:mt-0">
             <div class="bg-white/20 backdrop-blur-sm rounded-xl px-6 py-4">
-                <p class="text-sm text-green-100">Tanggal Hari Ini</p>
+                <p class="text-sm text-green-50">Tanggal Hari Ini</p>
                 <p class="text-xl font-bold">{{ date('d M Y') }}</p>
             </div>
         </div>
@@ -99,14 +99,14 @@
     <!-- Recent Activity -->
     <div class="lg:col-span-2">
         <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="bg-gradient-to-r from-green-600 to-green-700 px-6 py-4">
+            <div class="bg-gradient-to-r from-green-600 to-green-500 px-6 py-4">
                 <h2 class="text-xl font-bold text-white flex items-center">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     Riwayat Login Terbaru
                 </h2>
-                <p class="text-green-100 text-sm mt-1">Aktivitas pengguna terkini</p>
+                <p class="text-green-50 text-sm mt-1">Aktivitas pengguna terkini</p>
             </div>
 
             <div class="p-6">
