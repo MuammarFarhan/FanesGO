@@ -25,7 +25,7 @@
                     </div>
                     <div>
                         <h4 class="font-bold text-gray-800">Alamat Kantor</h4>
-                        <p class="text-gray-600 text-sm mt-1">Jl. Pertanian, Bengkalis, Riau, Indonesia</p>
+                        <p class="text-gray-600 text-sm mt-1">Bengkalis, Riau, Indonesia</p>
                     </div>
                 </div>
 
