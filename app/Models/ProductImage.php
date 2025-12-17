@@ -1,5 +1,4 @@
 <?php
-// File: app/Models/ProductImage.php
 
 namespace App\Models;
 
@@ -15,26 +14,23 @@ class ProductImage extends Model
         'produk_id',
         'image_path',
         'is_primary',
-        'order'
+        'order',
     ];
 
     protected $casts = [
-        'is_primary' => 'boolean'
+        'is_primary' => 'boolean',
     ];
 
-    // Relationship
     public function produk()
     {
         return $this->belongsTo(Produk::class);
     }
 
-    // Get full image URL
     public function getImageUrlAttribute()
     {
         return asset('storage/' . $this->image_path);
     }
 
-    // Delete image file when model deleted
     protected static function boot()
     {
         parent::boot();

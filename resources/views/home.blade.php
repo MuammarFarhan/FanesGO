@@ -1,46 +1,22 @@
-@extends('layouts.store') @section('title', 'FANES.GO - Jual Beli Oleh-oleh UMKM')
+@extends('layouts.store') @section('title', 'FANES.GO - UMKM Bengkalis')
 
 @section('content')
 <div class="bg-gradient-to-r from-green-600 to-green-500 rounded-2xl shadow-xl p-8 md:p-12 mb-8 text-white">
     <div class="max-w-2xl">
         <h1 class="text-3xl md:text-4xl font-bold mb-4">Selamat Datang di FANES.GO</h1>
-        <p class="text-lg text-green-50 mb-6">Marketplace Oleh-oleh UMKM terpercaya. Temukan berbagai produk lokal berkualitas dari seluruh Indonesia.</p>
+        <p class="text-lg text-green-50 mb-6">Marketplace UMKM terpercaya. Temukan berbagai produk lokal berkualitas hanya disini.</p>
         <div class="flex gap-4">
             <a href="#produk" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors">
                 Lihat Produk
             </a>
-            @guest
-            <a href="{{ route('register') }}" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
-                Daftar Sekarang
-            </a>
-            @endguest
         </div>
-    </div>
-</div>
-
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-    <div class="bg-white rounded-xl shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-green-600">{{ $produks->count() }}+</div>
-        <div class="text-gray-600 mt-2">Produk</div>
-    </div>
-    <div class="bg-white rounded-xl shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-green-600">100+</div>
-        <div class="text-gray-600 mt-2">UMKM</div>
-    </div>
-    <div class="bg-white rounded-xl shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-green-600">1000+</div>
-        <div class="text-gray-600 mt-2">Pelanggan</div>
-    </div>
-    <div class="bg-white rounded-xl shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-green-600">34</div>
-        <div class="text-gray-600 mt-2">Provinsi</div>
     </div>
 </div>
 
 <div id="produk" class="mb-4">
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Produk BestSeller</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Produk Best Seller</h2>
             <p class="text-gray-600 mt-1">Produk favorit pilihan pelanggan</p>
         </div>
     </div>
@@ -91,12 +67,6 @@
                                 Stok: {{ $produk->stok > 0 ? $produk->stok : 'Habis' }}
                             </p>
                         </div>
-                        <div class="text-yellow-500 flex items-center bg-yellow-50 px-2 py-1 rounded-lg">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                            </svg>
-                            <span class="text-xs ml-1 font-bold text-gray-700">4.8</span>
-                        </div>
                     </div>
 
                     <a href="{{ route('produk.detail', $produk->id) }}" class="block w-full text-center bg-green-600 text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-md hover:shadow-lg focus:ring-4 focus:ring-green-200">
@@ -135,23 +105,24 @@
     @endif
 </div>
 
-<div class="bg-gradient-to-br from-green-700 to-green-600 rounded-2xl shadow-2xl p-8 md:p-16 mt-12 mb-8 text-white text-center relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-    <div class="relative z-10">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Punya Produk UMKM?</h2>
-        <p class="text-green-50 mb-8 max-w-2xl mx-auto text-lg">
-            Bergabunglah dengan ribuan UMKM lainnya. Jangkau pelanggan baru dan tingkatkan penjualan Anda bersama FANES.GO.
-        </p>
-        @guest
-        <a href="{{ route('register') }}" class="inline-block bg-white text-green-700 px-10 py-4 rounded-xl font-bold hover:bg-green-50 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
-            Daftar Sebagai Penjual
-        </a>
-        @else
-        <a href="{{ route('produk.create') }}" class="inline-block bg-white text-green-700 px-10 py-4 rounded-xl font-bold hover:bg-green-50 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
-            Mulai Jual Produk
-        </a>
-        @endguest
-    </div>
+<div class="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-10 text-center text-white shadow-xl mt-16">
+    <h2 class="text-3xl font-bold mb-4">
+        Kenapa Belanja di FANES.GO?
+    </h2>
+
+    <p class="max-w-2xl mx-auto text-green-100 mb-6">
+        FANES.GO menghadirkan produk oleh-oleh UMKM pilihan
+        dengan kualitas terbaik langsung dari pelaku usaha lokal terpercaya.
+    </p>
+
+    <a href="{{ route('kategori.index') }}"
+        class="inline-flex items-center justify-center px-8 py-3
+          bg-white text-green-700 font-semibold rounded-xl
+          hover:bg-green-100 transition shadow-lg">
+        Lihat Kategori
+    </a>
+</div>
+
 </div>
 @endsection
 

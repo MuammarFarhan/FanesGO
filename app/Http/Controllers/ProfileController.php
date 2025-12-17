@@ -3,57 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function showProfile()
+    public function index()
     {
-        $user = Auth::user();
-        return view('admin.pengaturan.index', compact('user'));
+        return view('admin.profile.index', [
+            'user' => Auth::user()
+        ]);
     }
 
-    public function updateProfile(Request $request)
+    /**
+     * Update profil (nama, email, avatar)
+     */
+    public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:100',
-            'no_hp' => 'nullable|string|max:20',
-            'alamat_toko' => 'nullable|string',
-            'deskripsi_toko' => 'nullable|string',
-            'profile' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'name'   => 'required|string|max:255',
+            'email'  => 'required|email|max:255',
+            'avatar' => 'nullable|image|max:2048',
         ]);
 
         $user = Auth::user();
-        
-        $user->update([
-            'name' => $request->name,
-            'no_hp' => $request->no_hp,
-            'alamat_toko' => $request->alamat_toko,
-            'deskripsi_toko' => $request->deskripsi_toko,
-        ]);
 
-        if ($request->hasFile('profile')) {
-            if ($user->file) {
-                Storage::delete($user->file->path);
-                $user->file->delete();
+        // Upload avatar
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
             }
 
-            $file = $request->file('profile');
-            $extension = $file->getClientOriginalExtension();
-            $filename = $user->id . '-' . time() . '.' . $extension;
-            $folder = 'profiles/' . $user->id;
-            $path = $file->storeAs($folder, $filename, 'public'); 
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
 
-            $user->file()->create([
-                'alias' => 'foto-profil',
-                'filename' => $filename,
-                'path' => $path,
-                'mime_type' => $file->getClientMimeType(),
-                'size' => $file->getSize(),
+        $user->name  = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return back()->with('success', 'Profil berhasil diperbarui');
+    }
+
+    /**
+     * Ganti password (pakai password lama)
+     */
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password'         => 'required|min:6|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors([
+                'current_password' => 'Password saat ini salah'
             ]);
         }
 
-        return back()->with('success', 'Pengaturan toko berhasil diperbarui');
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return back()->with('success', 'Password berhasil diubah');
     }
 }
